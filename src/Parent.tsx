@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {response} from "./API.ts";
+import Character from "./Character.tsx";
 
 interface CharacterType {
     id: number;
@@ -7,7 +8,7 @@ interface CharacterType {
     status: string;
 }
 
-function Character(props: CharacterType) {
+function Parent() {
     const [characters  ] = useState<CharacterType[]>(response.results);
 
 // const filterCharacters = (searchTerm: string) => {
@@ -24,10 +25,17 @@ function Character(props: CharacterType) {
 // }
 
     return (
-        <div className={"DisplayCharacter"}>
-            {props.id}   {props.name}   {props.status}
+        <div>
+            <ul>
+                {characters.map((character) => (
+                    <Character key={character.id}
+                               id={character.id}
+                               name={character.name}
+                               status={character.status}/>
+                ))}
+            </ul>
         </div>
     );
 }
 
-export default Character;
+export default Parent;
